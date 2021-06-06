@@ -26,7 +26,7 @@ export default StackNav = () => {
         },
         headerTintColor: 'white',
       }}
-      initialRouteName="sign-in">
+      initialRouteName="Landing">
       {user ? (
         <Stack.Screen
           name="MainApp"
