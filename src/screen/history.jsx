@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, StyleSheet, Image} from 'react-native';
+import {View, StyleSheet, Alert} from 'react-native';
 import {
   ScrollContainer,
   Text,
@@ -43,18 +43,30 @@ const History = () => {
   };
 
   const deleteWeight = id => {
-    firestore()
-      .collection('daily_weights')
-      .doc(user.uid)
-      .collection('weight')
-      .doc(id)
-      .delete()
-      .then(() => {
-        Snackbar.show({text: 'Deleted'});
-      })
-      .catch(() => {
-        Snackbar.show({text: 'Something went wrong'});
-      });
+    Alert.alert('Delete Weight', 'Are You Sure ?', [
+      {
+        text: 'Cancel',
+        onPress: () => console.log('Cancel Pressed'),
+        style: 'cancel',
+      },
+      {
+        text: 'Delete',
+        onPress: () => {
+          firestore()
+            .collection('daily_weights')
+            .doc(user.uid)
+            .collection('weight')
+            .doc(id)
+            .delete()
+            .then(() => {
+              Snackbar.show({text: 'Deleted'});
+            })
+            .catch(() => {
+              Snackbar.show({text: 'Something went wrong'});
+            });
+        },
+      },
+    ]);
   };
 
   useEffect(() => {
